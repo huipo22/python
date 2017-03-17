@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        body,
+        html {
+            padding: 0;
+            margin: 0;
+        }
+        
+        h1 {
+            margin: 10px 0px 0px;
+            /*font-weight: 100;*/
+            -webkit-margin-after: 15px;
+        }
+        
+        .des-title {
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            margin: 15px 0px 10px;
+            word-wrap: break-word;
+        }
+        
+        .content p {
+            font-family: 'Times New Roman';
+            color: #454545;
+            margin: 0px 0px 20px;
+            color: #1f1f1f;
+        }
+        
+        .content .bigimg {
+            width: 100%;
+            height: auto;
+            width: calc(100% + 24px);
+            margin-left: calc(-12px);
+            margin-right: calc(-12px);
+        }
+        
+        .warp {
+            padding: 5px 12px 10px 12px;
+        }
+        
+        a {
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        
+        .smallimg {
+            vertical-align: middle;
+            border: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div id='IMG_0' style='width: 100%; height: 200px; border: 1px solid rgb(204, 204, 204); background: none;'>
+            <img class="smallimg" src="https://d25hg5j0eq13gp.cloudfront.net/d9ed966a-04e0-11e7-a925-060679f5f11b.jpg">
+        </div>
+        <div>
+            New Delhi: India raised the killing of Indian engineer Srinivas Kuchibhotla in a hate attack in Kansas with US authorities
+            in "very strong terms", a top official said on Thursday, adding that the security of Indians and persons of Indian
+            origin is a matter of serious concern for the Indian government. On a day the issue featured in a major way in
+            Parliament and Union Home Minister Rajnath Singh assured the Lok Sabha that the government is taking the issue
+            very seriously, External Affairs Ministry spokesperson Gopal Baglay said in a briefing that Foreign Secretary
+            S. Jaishankar was conveyed by US officials during his talks in Washington that the attack on Kuchibhotla and
+            another Indian in the February 22 incident was an "individual case". Baglay said that the Indian Consulate reached
+            out to the families of Kuchibhotla and Alok Madasani, who was injured in the shooting in a Kansas pub, and also
+            to the family of a Sikh, Deep Rai, an American citizen, who was injured in a hate attack in Kent last week. "You
+            would have also seen the response of the US authorities, beginning with President Trump who referred to the Kansas
+            incident in his address to the Congress. The US Embassy had put out a press release condemning the Kansas killing.
+            Speaker of the House has also condemned it," said the spokesperson, adding that there is wide ranging condemnation
+            of such crimes within the US. "This point has also been highlighted by various prominent US dignitaries that
+            such crimes do not represent the views of the vast majority in that country. In fact, several senior US dignitaries
+            have explicitly mentioned in the recent days that Indians are welcome in the United States," he added. "Given
+            the high priority the Government attaches to the security and wellbeing of Indians and persons of Indian origin
+            abroad, we will continue to remain strongly engaged with the concerned authorities wherever required." He also
+            said that the government of Kansas has offered to provide support to the family of Kuchibhotla and has welcomed
+            Indians to the State. Referring to the letter of the Governor of Kansas Sam Brownback, Baglay said, "there is
+            a sense of regret at the unfortunate shooting, commitment to prosecute the matter, support to the family of the
+            deceased, and recognition of the qualities and contribution of Srinivas to Kansas." Kansas Governor Sam Brownback
+            on Wednesday wrote a letter to the Prime Minister Narendra Modi expressing regret over the violence against Indians.
+            Another Indian, Harnish Patel, was killed in South Carolina 10 days ago, but the killing was not identified as
+            a hate crime.
+        </div>
+    </div>
+</body>
+<script>
+    function setFontSize(size) {
+        var size = size ? size : 'middle';
+        /*获取内容标签*/
+        var cont = document.getElementsByClassName("content")[0];
+        /*获取标题标签*/
+        var tit = document.getElementsByTagName('h1')[0];
+        if (size == "small" || size == "小") {
+            cont.style.cssText = 'font-size:17px;line-height: 23px;';
+            tit.style.cssText = 'font-size:22px;font-family: times new roman;';
+        } else if (size == "middle" || size == "中") {
+            cont.style.cssText = 'font-size:19px;line-height: 25px;';
+            tit.style.cssText = 'font-size:24px;font-family: times new roman;';
+        } else if (size == "big" || size == "大") {
+            cont.style.cssText = 'font-size:21px;line-height: 27px;';
+            tit.style.cssText = 'font-size:26px;font-family: times new roman;';
+        } else if (size == "ver_big" || size == "特大") {
+            cont.style.cssText = 'font-size:23px;line-height: 29px;';
+            tit.style.cssText = 'font-size:28px;font-family: times new roman;';
+        }
+    }
+    /*默认调用*/
+    setFontSize();
+    /*日期函数扩展*/
+    var time = document.getElementById("dates").innerHTML;
+    console.log("替换前：" + time)
+    var now = time.replace(/ /, "T");
+    console.log("替换后:" + now)
+    var d = new Date(now);
+    var dformat = js_yyyy_mm_dd_hh_mm_ss(d);
+
+    function js_yyyy_mm_dd_hh_mm_ss(date) {
+        now = date;
+        year = "" + now.getFullYear();
+        month = "" + (now.getMonth() + 1);
+        if (month.length == 1) {
+            month = "0" + month;
+        }
+        day = "" + now.getDate();
+        if (day.length == 1) {
+            day = "0" + day;
+        }
+        hour = "" + now.getHours();
+        if (hour.length == 1) {
+            hour = "0" + hour;
+        }
+        minute = "" + now.getMinutes();
+        if (minute.length == 1) {
+            minute = "0" + minute;
+        }
+        second = "" + now.getSeconds();
+        if (second.length == 1) {
+            second = "0" + second;
+        }
+        return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+    }
+    document.getElementById("dates").innerHTML = dformat;
+    //
+
+</script>
+<script src='jquery-2.1.4.min.js'></script>
+<script type="text/javascript" src="us.js"></script>
+
+</html>
