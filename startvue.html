@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+
+<body>
+    <div id="app">
+        <p>form 表单 :{{msg}}</p>
+        <input type="" name="" value="" v-model="msg"><br/>
+
+        <span v-bind:title="title">title:{{msg}}</span>
+        <h1 v-if="isTrue" v-once>{{title}}</h1>
+
+        <ol>
+            <li v-for="todo in todos">{{todo.text}}</li>
+        </ol>
+        <div>
+            <span>{{title}}</span>
+            <!--<button v-on:click="reverseTitle">逆转title</button>-->
+            <button @click="reverseTitle">逆转title</button>
+        </div>
+        
+        <todo-item :todo='isTrue'></todo-item>
+        <!--<todo-item v-for="item in todos" :Item="item"></todo-item>-->
+
+    </div>
+    <script>
+        Vue.component('todo-item',{
+            props:['todo'],
+            template:'<li>{{todo}}</li>'
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: 123456,
+                title: 'update time:' + new Date(),
+                isTrue: true,
+                todos: [
+                    { "text": "javascript" },
+                    { "text": "Java" },
+                    { "text": "Python" }
+                ]
+            },
+            methods:{
+                reverseTitle:function(){
+                    this.title=this.title.split('').reverse().join('')
+                }
+            }
+        })
+        // app.todos.push({ "text": "Html" }, { "text": "Php" })
+        // app.todos.reverse()
+        
+    </script>
+</body>
