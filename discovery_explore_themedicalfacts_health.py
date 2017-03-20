@@ -30,9 +30,13 @@ class ArticleHealthSpider(CrawlSpider):
     ]
     rules = (Rule(LinkExtractor(allow=r"http://www.themedicalfacts.com/[\w].+"), callback="parse_item"),)
 
+    # 翻页时用到的函数
     def getNextPage(self, nextUrl, requestUrl):
+        # 存放图片
         pic = []
+        # 存放body
         bodyDatas = []
+        # 按顺序依次请求要访问的url
         for i in range(2, nextUrl + 1):
             rObj = requests.get(requestUrl + str(i))
             bsObj = BeautifulSoup(rObj.content, "lxml")
@@ -44,7 +48,7 @@ class ArticleHealthSpider(CrawlSpider):
             bodyData = unicode(bsObj.find('div', 'td-post-content td-pb-padding-side'))
             bodyDatas.append(bodyData)
             # print bodyDatas
-
+        # 最后返回回去
         return pic, bodyDatas
 
     def parse_item(self, response):
@@ -81,12 +85,15 @@ class ArticleHealthSpider(CrawlSpider):
         # print 'nowTime:', conf['pageTime']
         if webTime > last:
             requestUrl = response.url
+            # 初始化 pic  bodyDatas  用来接 函数的返回值
             pic = []
             bodyDatas = []
             if response.xpath('//i[@class="td-icon-menu-right"]'):
+                # 查看有多少页
                 nextUrl = int(
                     response.xpath('//div[@class="page-nav page-nav-post td-pb-padding-side"]/a/@href').extract()[-2][
                         -2])
+                # 调用翻页函数
                 pic, bodyDatas = self.getNextPage(nextUrl, requestUrl)
 
             item = ArticleItem()
