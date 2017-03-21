@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="//cdn.bootcss.com/marked/0.3.6/marked.js"></script>
+</head>
+<body>
+<div id="editor">
+    <textarea :value="input" @input="update"></textarea>
+    <div v-html="compiledMarkdown"></div>
+</div>
+<script>
+    new Vue({
+        el: '#editor',
+        data: {
+            input: '#hello world'
+        },
+        computed: {
+            compiledMarkdown: function () {
+                return marked(this.input, {sanitize: true})
+            }
+        },
+        methods: {
+            update: setTimeout(function (e) {
+//                this.input = e.target.value
+                console.log(e)
+            }.bind(this), 300)
+        }
+    })
+</script>
+</body>
+</html>
