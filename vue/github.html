@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="demo">
+    <h1>最近提交</h1>
+    <template v-for="branch in branches">
+        <!--input id的作用是：用来关联 label 的值-->
+        <input type="radio" :id="branch" :value="branch" name="branch" v-model="currentBranch">
+
+        <!--检测label的for属性 ：for-->
+        <label :for="branch">{{branch}}</label>
+    </template>
+    <p>当前：{{currentBranch}}</p>
+    <ul>
+        <li v-for="record in commits">
+            <span>{{record.commit.message | truncate}}</span> -----
+            <span>{{ record.commit.author.date |formatDate}}</span>
+        </li >
+    </ul>
+</div>
+<script>
+    var apiURL = 'https://api.github.com/repos/vuejs/vue/commits?per_page=3&sha='
+    new Vue({
+        el: '#demo',
+        data: {
+            branches: ['master', 'dev'],
+            currentBranch: 'master',
+            commits: null
+        },
+        created: function () {
+            this.fetchData()
+        },
+        watch: {
+            currentBranch: 'fetchData'
+        },
+        filters: {
+            formatDate: function (v) {
+                return v.replace(/T|Z/g, ' ')
+            },
+            truncate: function (v) {
+                var newline = v.indexOf('\n')
+//                console.log(newline)
+                return newline > 0 ? v.slice(0, newline) : v
+            }
+        },
+        methods: {
+            fetchData: function () {
+                var xhr = new XMLHttpRequest()
+                var self = this
+                xhr.open('GET', apiURL + self.currentBranch)
+                xhr.onload = function () {
+                    self.commits = JSON.parse(xhr.responseText)
+//                    console.log(self.commits)
+                }
+                xhr.send()
+            }
+        }
+    })
+</script>
+<style>
+    #demo {
+        font-family: 'Helvetica', Arial, sans-serif;
+    }
+
+    li {
+        line-height: 1.5em;
+        margin-bottom: 20px;
+    }
+
+</style>
+</body>
+</html>
